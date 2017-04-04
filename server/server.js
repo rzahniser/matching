@@ -6,19 +6,25 @@
 // Messages from the server are JSON arrays-of-arrays, where
 // each array starts with a string command code.
 
-var http = require('http'),
+var express = require('express'),
+    path = require('path'),
     WebSocketServer = require('websocket').server,
     Game = require('./Game.js'),
-    Protocol = require('./Protocol.js');
+    Protocol = require('./Protocol.js'),
+    path = require('path');
 
-var server = http.createServer(function(request, response) {
-  console.log(request.url);
-});
-server.listen(1234, function() {
-  console.log((new Date()) + ' Server is listening on port 1234');
-});
+var PORT = process.env.PORT || 3000;
+var INDEX = path.join(__dirname, '../index.html');
 
-wsServer = new WebSocketServer({ httpServer: server });
+var server = express()
+  .use('/lib', express.static(path.join(__dirname, '../lib')))
+  .use('/js', express.static(path.join(__dirname, '../js')))
+  .use('/images', express.static(path.join(__dirname, '../images')))
+  .use('/css', express.static(path.join(__dirname, '../css')))
+  .use((req, res) => res.sendFile(INDEX))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+var wsServer = new WebSocketServer({ httpServer: server });
 
 wsServer.on('request', function(r) {
   var connection = r.accept(null, r.origin);
