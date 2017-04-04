@@ -35,6 +35,7 @@ define(["Random", "Images", "Card", "Player", "Bot"], function(Random, Images, C
     }
     resolveTimeout = undefined;
     firstCard = secondCard = undefined;
+    players[player].select();
     postPlayer();
   }
   
@@ -53,8 +54,6 @@ define(["Random", "Images", "Card", "Player", "Bot"], function(Random, Images, C
         Game.round++;
       }
     } while(disconnect[players[player].clientID]);
-    
-    players[player].select();
   }
   
   function doMismatch() {
@@ -121,6 +120,7 @@ define(["Random", "Images", "Card", "Player", "Bot"], function(Random, Images, C
       if(!reconnect[clientID] && gameIsStarted()) {
         if(players[player].disconnected) {
           nextPlayer();
+          players[player].select();
         }
         postPlayer();
       }
@@ -152,7 +152,7 @@ define(["Random", "Images", "Card", "Player", "Bot"], function(Random, Images, C
       return remaining <= (secondCard && isMatch() ? 1 : 0);
     },
     isSolitaire: function() {
-      return this.getPlayerCount();
+      return this.getPlayerCount() <= 1;
     },
     getWinner: function() {
       var best = [ players[0] ];

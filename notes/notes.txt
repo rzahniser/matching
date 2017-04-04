@@ -9,6 +9,13 @@ x Handle player navigating away from the game and then back (use local storage t
 - Deal gracefully with websocket disconnect (since Heroku may periodically reset the app)
 - Deploy to Heroku (websocket portion) and zahniser.net (static html).
 - Refactor to conform to Twelve-Factor App architecture (e.g. using persistent storage instead of in-memory local storage)
+- Figure out how to pull out server, etc. into config so that I can test locally or against heroku without changing things
+
+
+
+Getting just the deploy without git junk:
+
+git archive master | tar -x -C ../www/matching
 
 
 New game process:

@@ -17,7 +17,7 @@ define(["Vector"], function(Vector) {
     this.peer.setAttribute("style", 
         "left: " + getPageX(x) + "; " +
         "top: " + getPageY(y) + "; " +
-        "background-image: url(../images/" + (image.image || image.name) + ".jpg); " +
+        "background-image: url(images/" + (image.image || image.name) + ".jpg); " +
                       " animation-delay: " + (-3 + n * 0.05).toFixed(2) + "s;");
     document.getElementById("main").appendChild(this.peer);
   }
