@@ -1,0 +1,21 @@
+{
+  "name": "matching",
+  "version": "0.1",
+  "description": "Memory matching game (HTML5 and Node.js)",
+  "engines": {
+    "node": "6.2.0"
+  },
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "ws": "1.1.0",
+    "express": "4.13.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rzahniser/matching"
+  },
+  "license": "The Unlicense"
+}
