@@ -1,6 +1,6 @@
 {
   "name": "matching",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "Memory matching game (HTML5 and Node.js)",
   "engines": {
     "node": "6.2.0"
