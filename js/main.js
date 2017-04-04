@@ -87,7 +87,10 @@ define(["Game", "Socket", "Link", "Dialog"], function(Game, Socket, Link, Dialog
     }
   }
 
-  Socket.init("ws://fathomless-sierra-41554.herokuapp.com:1234", function(command, data) {
+  Socket.init(window.location.href.indexOf("127.0.0.1") >= 0 ? 
+              "ws://localhost:1234" :
+              "ws://fathomless-sierra-41554.herokuapp.com:1234", 
+          function(command, data) {
     handlers[command].apply(null, data);
   }, function() {
     if(window.localStorage["gameID"]) {
