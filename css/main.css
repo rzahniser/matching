@@ -1,0 +1,243 @@
+body {
+  margin: 0;
+  background: #888;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+#main {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1000px;
+  height: 690px;
+  margin: -345px -500px -345px -500px;
+  background: inherit;
+  perspective: 1000px;
+}
+
+#sidebar, #dialog {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+#sidebar {
+  left: 0;
+  width: 220px;
+}
+
+#dialog {
+  left: 230px;
+  right: 0px;
+}
+
+#dialog div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  padding: 10px;
+  border-radius: 20px;
+  background: #EEE;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+@keyframes dialogFadeIn {
+  0% { opacity: 0; transform: translate(-50%, -50%) translate(0, 400px) scale(2); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+@keyframes dialogFadeOut {
+  0% { opacity: 1; transform: translate(-50%, -50%); }
+  100% { opacity: 0; transform: translate(-50%, -50%) translate(0, -400px); }
+}
+
+.player {
+  width: 210px;
+  height: 150px;
+  margin: 0 0 10px 0;
+  padding: 5px;
+  background: #AAA;
+  border-radius: 20px;
+}
+
+.player:after {
+  content: attr(data-name);
+  display: block;
+  position: relative;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Verdana, Sans;
+  text-shadow: 2px 2px 2px black;
+  text-align: center;
+  z-index: 200;
+}
+
+.disconnected:after {
+  color: lightgray !important;
+  text-shadow: none !important;
+}
+
+#playerSelector {
+  position: absolute;
+  width: 218px;
+  height: 158px;
+  left: 0;
+  transition: 0.3s;
+  border: 1px solid red;
+  border-image-source: radial-gradient(ellipse closest-side, rgba(0,0,0,0) 70%, rgba(0,0,255,0.33) 75%, cyan 78%, white 85%, cyan 92%, rgba(0,0,255,0.33) 95%, rgba(0,0,0,0));
+  border-image-slice: 49%;
+  border-image-width: 30px;
+  border-image-outset: 10px;
+  animation: 0.3s selectorStart;
+}
+
+@keyframes selectorStart {
+  0% { opacity: 0; transform: scale(1.5); }
+  50% { opacity: 1; transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.card {
+  position: absolute;
+  transition: left 1s, top 1s;
+  transition-delay: 2s;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card.collected:after {
+  box-shadow: 0 0 4px rgba(0,0,0,0.5);
+}
+
+.card, .card:after {
+  width: 120px;
+  height: 120px;
+}
+
+.card {
+  transition: 0.3s;
+  transform-style: preserve-3d;
+  position: absolute;
+  /* So that pseudo-element can inherit an non-visible background-image */
+  background-position: 1000px 1000px;
+  background-repeat: no-repeat;
+  /* The last 0.3s is the actual animation; the rest is delay time */
+  animation: 3s popIn;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); }
+  90% { transform: scale(0); }
+  100% { transform: scale(1); }
+}
+
+.card:before, .card:after {
+  content: " ";
+  border-radius: 20px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.card:before {
+  border: 5px solid #CCF;
+  width: 110px;
+  height: 110px;
+  background: linear-gradient(to bottom right, #88F, #AAF);
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.card:after {
+  background-color: white;
+  background-image: inherit;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+  z-index: 1;
+  transform: rotateY(180deg);
+}
+
+label, input, button {
+  font-size: 24px;
+  margin: 5px;
+}
+
+input, button {
+  border-radius: 13px;
+  border: 1px solid #EEE;
+}
+
+input {
+  box-shadow: inset 1px 1px 6px rgba(0, 0, 0, 0.7);
+  background: white;
+  padding: 3px 10px 3px 10px;
+}
+
+button {
+  position: relative;
+  background: #019DFF;
+  box-shadow: inset 1px 1px 6px rgba(255,255,255,0.6), inset -1px -1px 6px rgba(0,0,0,0.6);
+  padding: 2px 4px 2px 4px;
+}
+
+input:focus, button:focus {
+  outline: none;
+  border-image-source: radial-gradient(ellipse closest-side, rgba(0,0,0,0) 70%, rgba(0,0,255,0.33) 75%, cyan 80%, white 85%, cyan 90%, rgba(0,0,255,0.33) 95%, rgba(0,0,0,0));
+  border-image-slice: 49%;
+  border-image-width: 16px;
+  border-image-outset: 4px;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+button:before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-image-source: radial-gradient(ellipse closest-side, rgba(0,255,255,0.6) 0%, rgba(0,0,0,0) 100%);
+  border-image-slice: 49% fill;
+  border-image-width: 19px 12px 9px 12px;
+  border-width: 1;
+}
+
+button:after {
+  content: attr(data-label);
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  border-radius: 12px 12px 0 0 / 8px 8px 0 0;
+  background: linear-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 50%);
+  color: white;
+  text-shadow: 1px 1px 3px black;
+  padding: 1px 13px 1px 13px;
+}
+
+button:hover {
+  background: #02AAFF;
+}
+
+button:hover:before {
+  border-image-source: radial-gradient(ellipse closest-side, rgba(50,255,255,1) 0%, rgba(0,0,0,0) 100%);
+}
+
+button:active {
+  background: #0066AA;
+}
+
+button:active:before {
+  border-image-source: radial-gradient(ellipse closest-side, rgba(20,200,255,1) 0%, rgba(0,0,0,0) 100%);
+}

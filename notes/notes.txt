@@ -1,0 +1,39 @@
+TODO:
+
+x Server handle all the new commands so that HostDialog works
+x Be nice about selecting default text fields, selecting all text on focus, clearing fields on entry, not allowing empty or duplicate names, etc.
+x Game post events (time for player to go, card flipped, game end), rather than plumbing directly to Bot or polling every 2s
+x Handle player disconnect
+x Handle player navigating away from the game and then back (use local storage to store game key, and have a game instance key of some sort)
+- Timeout if player takes more than 15s to play (and let them back in if we detect mouse or keyboard activity later?)
+- Deal gracefully with websocket disconnect (since Heroku may periodically reset the app)
+- Deploy to Heroku (websocket portion) and zahniser.net (static html).
+- Refactor to conform to Twelve-Factor App architecture (e.g. using persistent storage instead of in-memory local storage)
+
+
+New game process:
+
+1) "Choose a name" screen with text field, "Start" button, and "Host private game" link (go to 2).
+  a) Send [N Name]
+  b) Receive [C gameID seed clientID], then one [P clientID Name] or [R clientID Name] per player or robot.
+    - The server ensures that no more than 4 real players (P) are assigned to the game. It can do this without inspecting the messages, because it knows that in a public game there is exactly one player per client.
+  c) Display "Waiting for players" if players < 4.
+  d) If clientID = 0, add a robot after each 3s with [R clientID Name]
+    - Actually, bots need to be added by the server, so that it can enforce the 4 player limit.
+  e) When fourth player is added, initialize and go to 3 (and ignore further players)
+  - TODO: Handle the case where a player disconnects
+2) "Private game" screen. The text from the "Choose a name" field is inherited by the "Add player" field.
+  a) Send [J gameID] if game ID was specified in the address or if re-matching, otherwise send just [J].
+  b) Receive [C gameID seed clientID], etc. as above.
+  c) On adding, send [P clientID "Name"].
+  d) Otherwise, proceed as in (1).
+3) Game in progress
+  a) If active player is a bot controlled by this computer, or on mouse interaction, if active player is controlled by this computer, post [F clientID x y].
+    - TODO: Who inherits the bot if that computer disconnects? There could just be a policy of the next-numbered player...
+  b) If [F clientID x y] is received from a different client, update the UI
+  c) When sending a flip that ends the game, send [Z].
+  d) When the game is over, go to (4). Server also garbage-collects the game at this point.
+  - TODO: Timeout if player does nothing on their turn for 15s
+4) End of game
+  a) Screen with buttons "Rematch" (go to 2), "Quit" (go to 1).
+  b) Server detects game losing all clients and garbage-collects it.
