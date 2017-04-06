@@ -9,6 +9,12 @@ body {
   overflow: hidden;
 }
 
+.about {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
 #main {
   position: absolute;
   left: 50%;

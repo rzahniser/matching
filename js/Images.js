@@ -19,7 +19,7 @@ define([], function() {
     { name: "pine cone", description: "The pine cone rests in your hand in its prickly way and exudes a sharp piney smell.", image: "pinecone" },
     { name: "potato", description: "The potato has a smooth, firm skin with occasional divots." },
     { name: "rose", description: "The rose is a tight swirl of soft, pliable petals, with a rich smell." },
-    { name: "shell", description: "The shell is ridged subtly like a fingernail, and spirals around its center five times." },
+    { name: "shell", description: "A knife-sharp edge separates the ridged outside of this shell from the incredibly smooth inside." },
     { name: "starfish", description: "Five rough and spiny arms radiate out from the center of the starfish." },
     { name: "sunflower", description: "The sunflower has a fringe of long, stiff petals around a densely packed inner array of seeds." },
     { name: "walnut", description: "The walnut's rumpled shell is as smooth and hard as polished stone." },

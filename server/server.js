@@ -21,6 +21,7 @@ var server = express()
   .use('/js', express.static(path.join(__dirname, '../js')))
   .use('/images', express.static(path.join(__dirname, '../images')))
   .use('/css', express.static(path.join(__dirname, '../css')))
+  .use('/about.html', express.static(path.join(__dirname, '../about.html')))
   .use((req, res) => res.sendFile(INDEX))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
