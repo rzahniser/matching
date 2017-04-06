@@ -5,8 +5,8 @@ define([], function() {
   var images = [
     { name: "acorn", description: "The acorn's scaly cap clings tightly around a smooth nut which tapers to a neat point." },
     { name: "apple", description: "The skin of the apple is firm and crisp and it echoes hollowly when you tap it." },
-    { name: "bananas", description: "A bunch of four bananas, ripe and fragrant." },
-    { name: "beetle", description: "The beetle's smooth, hard carapace flows into two long horns on its head." },
+    { name: "bananas", description: "A bunch of seven bananas, ripe and fragrant." },
+    { name: "beetle", description: "The beetle's smooth, hard carapace flows into three long horns on its head." },
     { name: "broccoli", description: "The bumpy, rounded crown of the uncooked broccoli flexes slightly under your probing fingers." },
     { name: "butterfly", description: "The butterfly's feet clutch your fingertip. You feel its wings twitch as it adjusts its balance." },
     { name: "copper", description: "A heavy lump of copper ore with a complex shape, full of holes and smooth knobby protuberances." },

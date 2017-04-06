@@ -1,4 +1,4 @@
-define(["Game", "Socket", "Link", "Dialog"], function(Game, Socket, Link, Dialog) {
+define(["Game", "Socket", "Link", "Dialog", "JoinDialog", "HostDialog", "EndDialog"], function(Game, Socket, Link, Dialog, JoinDialog, HostDialog, EndDialog) {
   // My client index within the current game
   var myClientID = 0;
   // If true, the page was just refreshed and we were trying to reconnect
@@ -7,7 +7,7 @@ define(["Game", "Socket", "Link", "Dialog"], function(Game, Socket, Link, Dialog
   function doFlip(card) {
     Game.flip(card);
     if(Game.isGameOver()) {
-      Dialog.show("EndDialog");
+      EndDialog.show();
     }
   }
   
@@ -78,12 +78,17 @@ define(["Game", "Socket", "Link", "Dialog"], function(Game, Socket, Link, Dialog
     botTimeout: 15,
   });
   
+  function hideConnectDialog() {
+    document.getElementById("connect").setAttribute("style", "display: none");
+  }
+  
   function doNetworkInit() {
+    hideConnectDialog();
     if(Link.getGameID()) {
       Socket.joinGame(Link.getGameID());
-      Dialog.show("HostDialog");
+      HostDialog.show();
     } else {
-      Dialog.show("JoinDialog");
+      JoinDialog.show();
     }
   }
 
@@ -99,6 +104,7 @@ define(["Game", "Socket", "Link", "Dialog"], function(Game, Socket, Link, Dialog
       doNetworkInit();
     }
   }, function() {
+    hideConnectDialog();
     delete Socket.gameType;
     myClientID = 0;
     Game.initOffline();

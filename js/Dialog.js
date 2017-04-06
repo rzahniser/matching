@@ -4,17 +4,22 @@ define(["Socket"], function(Socket) {
       hidden = "display: none";
   
   function checkAndSet(dialog, from, to) {
-    if(dialog.getAttribute("style") == from) {
+    var style = dialog.getAttribute("style");
+    if(style == from || style == undefined) {
       dialog.setAttribute("style", to);
       return true;
     }
     return false;
   }
   
-  function Dialog() {
-    this.dialog = document.createElement("div");
-    this.dialog.setAttribute("style", hidden);
-    document.getElementById("dialog").appendChild(this.dialog);
+  function Dialog(peer) {
+    if(peer) {
+      this.dialog = peer;
+    } else {
+      this.dialog = document.createElement("div");
+      this.dialog.setAttribute("style", hidden);
+      document.getElementById("dialog").appendChild(this.dialog);
+    }
   }
   Dialog.prototype.show = function() {
     if(checkAndSet(this.dialog, hidden, fadeIn) && 
