@@ -75,6 +75,7 @@ define(["Socket"], function(Socket) {
       e.preventDefault();
     }.bind(this));
     form.appendChild(button);
+    return button;
   };
   Dialog.prototype.link = function(text, callback, form) {
     var link = document.createElement("a");
@@ -88,6 +89,7 @@ define(["Socket"], function(Socket) {
     }.bind(this));
     form.appendChild(document.createElement("br"));
     form.appendChild(link);
+    return link;
   };
   Dialog.show = function(name) {
     var args = [].slice.call(arguments, 1);

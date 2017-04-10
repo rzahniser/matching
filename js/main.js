@@ -92,7 +92,11 @@ define(["Game", "Socket", "Link", "Dialog", "JoinDialog", "HostDialog", "EndDial
     }
   }
 
-  Socket.init(location.origin.replace(/^http/, 'ws'), function(command, data) {
+  var server = "$SERVER$";
+  if(server.substring(0, 2) != "ws") {
+    server = location.origin.replace(/^http/, 'ws');
+  }
+  Socket.init(server, function(command, data) {
     handlers[command].apply(null, data);
   }, function() {
     if(window.localStorage["gameID"]) {

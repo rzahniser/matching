@@ -44,3 +44,9 @@ New game process:
 4) End of game
   a) Screen with buttons "Rematch" (go to 2), "Quit" (go to 1).
   b) Server detects game losing all clients and garbage-collects it.
+  
+NPM build script alternative to build.js:
+
+    "build": "mkdirp dist && npm run build:copy && npm run build:js",
+    "build:copy": "ncp css dist/css && ncp images dist/images && ncp index.html dist/index.html && ncp about.html dist/about.html",
+    "build:js": "r.js -o baseUrl=js name=init include=main out=dist/main.js && replace \"lib/require.js\\\" data-main=\\\"js/config\" \"main.js\" dist/index.html"

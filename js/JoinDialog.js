@@ -2,7 +2,7 @@
  * JoinDialog is the default startup dialog, used for joining
  * a public game.
  */
-define(["Dialog", "Socket"], function(Dialog, Socket) {
+define(["Dialog", "Socket", "WaitDialog"], function(Dialog, Socket, WaitDialog) {
   var JoinDialog = new Dialog();
 
   var form = document.createElement("form");
